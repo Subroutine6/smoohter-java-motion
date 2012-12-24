@@ -1,0 +1,80 @@
+/*
+ * 
+ */
+package graphictest;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.*;
+
+public class GameField extends JPanel implements ActionListener
+{
+    private pictures one;
+    private boolean running;
+    private Timer timer;
+    
+    public GameField()
+    {
+        addKeyListener(new KeyCheck());
+                
+        setFocusable(true);
+        setBackground(Color.BLACK);
+        setDoubleBuffered(true);
+        one = new pictures();
+        
+        timer = new Timer(5, this);
+        timer.start();
+        
+        running = true;
+        System.out.println("Now Running");
+    }
+    
+    
+    public void update()
+    {
+        if(running == true)
+        {
+        one.move();
+        repaint();
+        }
+    }
+    
+    public Timer gettimer()
+    {
+        return timer;
+    }
+    
+    public void paint(Graphics g)
+    {
+        super.paint(g);
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setColor(Color.YELLOW);
+        g2d.fillRect(one.getposX(), one.getposY(), one.getlength(), one.getwidth());
+        Toolkit.getDefaultToolkit().sync();
+        g.dispose();
+    }
+    
+    public void actionPerformed(ActionEvent e)
+    {
+        one.move();
+        repaint();
+    }
+    
+    private class KeyCheck extends KeyAdapter 
+    {
+        public void keyReleased(KeyEvent e) 
+        {
+            one.keyReleased(e);
+        }
+
+        public void keyPressed(KeyEvent e) 
+        {
+            one.keyPressed(e);
+        }
+    }
+}
