@@ -1,0 +1,59 @@
+/*
+ * 
+ */
+package graphictest;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+public class Graphictest extends JFrame
+{
+    private JMenuItem exit;
+    private JMenu file;
+    private JMenuBar menu;
+    private GameField gamefield;
+    
+    public Graphictest()
+    {
+        add(gamefield = new GameField());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 400);
+        setVisible(true);
+        setTitle("Window");
+        setLocationRelativeTo(null);
+        setResizable(true);
+        
+        menu = new JMenuBar();
+        setJMenuBar(menu);
+        file = new JMenu("File");
+        menu.add(file);
+        exit = new JMenuItem("Exit");
+        file.add(exit);
+        
+        event3 ev3 = new event3();
+        exit.addActionListener(ev3);
+    }
+    
+    
+    public static void main(String[] args) 
+    {
+        new Graphictest();
+    }
+    
+    public GameField getgamefield()
+    {
+        return gamefield;
+    }
+
+public class event3 implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+           System.exit(0); 
+        }
+    }
+}
