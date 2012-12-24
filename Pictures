@@ -1,0 +1,157 @@
+/*
+ * 
+ */
+package graphictest;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+
+public class pictures 
+{
+    private int posX;
+    private int posY;
+    private int length;
+    private int width;
+    private int changeX;
+    private int changeY;
+    private String[] mover = new String[]{null, null, null, null};
+    private boolean LpF = false;
+    private boolean RpF = false;
+    private boolean UpF = false;
+    private boolean DpF = false;
+    
+    public pictures()
+    {
+        posX = 200;
+        posY = 200;
+        length = width = 10;
+    }
+    
+    public int getposX()
+    {
+        return posX;
+    }
+    
+    public int getposY()
+    {
+        return posY;
+    }
+    
+    public int getlength()
+    {
+        return length;
+    }
+    
+    public int getwidth()
+    {
+        return width;
+    }
+    
+    public void move()
+    {
+        if (mover[0] != null && LpF == true)
+        {
+            if(mover[1] != null) changeX = 2;
+            else changeX = -2;
+        }
+        else if(mover[1] != null && RpF == true)
+        {
+            if(mover[0] != null) changeX = -2;
+            else changeX = 2;
+        }
+        else changeX = 0;
+        
+        posX += changeX;
+        if (posX < 0)
+        {
+            posX = 0;
+        }
+        else if (posX >= 375)
+        {
+            posX = 375;
+        }
+        
+        if (mover[2] != null && UpF == true)
+        {
+            if(mover[3] != null) changeY = 2;
+            else changeY = -2;
+        }
+        else if(mover[3] != null && DpF == true)
+        {
+            if(mover[2] != null) changeY = -2;
+            else changeY = 2;
+        }
+        else changeY = 0;
+        
+        posY += changeY;
+        if (posY < 0)
+        {
+            posY = 0;
+        }
+        else if (posY >= 330)
+        {
+            posY = 330;
+        }
+    }
+   
+    public Rectangle getBounds(){
+        return new Rectangle(posX, posY, length, width);
+    }
+    
+    public void keyPressed(KeyEvent e){
+        int key = e.getKeyCode();
+        
+        if (key == KeyEvent.VK_LEFT) 
+        {
+            mover[0] = "Left";
+            if(RpF == false) LpF = true;
+        }
+
+        if (key == KeyEvent.VK_RIGHT) 
+        {
+            mover[1] = "Right";
+            if(LpF == false) RpF = true;
+        }
+
+        if (key == KeyEvent.VK_UP) 
+        {
+            mover[2] = "Up";
+            if(DpF == false) UpF = true;
+        }
+
+        if (key == KeyEvent.VK_DOWN) {
+            
+            mover[3] = "Down";
+            if(UpF == false) DpF = true;
+        }
+    }
+    
+    public void keyReleased(KeyEvent e)
+    {
+        int key = e.getKeyCode();
+        
+        if (key == KeyEvent.VK_LEFT) 
+        {
+            mover[0] = null;
+            LpF = false;
+        }
+
+        if (key == KeyEvent.VK_RIGHT) 
+        {
+            mover[1] = null;
+            RpF = false;
+        }
+
+        if (key == KeyEvent.VK_UP) 
+        {
+            mover[2] = null;
+            UpF = false;
+        }
+
+        if (key == KeyEvent.VK_DOWN) 
+        {
+            mover[3] = null;
+            DpF = false;
+        }
+        
+}
+}
